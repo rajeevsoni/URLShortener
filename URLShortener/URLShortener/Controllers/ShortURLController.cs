@@ -15,6 +15,15 @@ namespace URLShortener.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Get short URL.
+        /// </summary>
+        /// <remarks>
+        /// ### Usage Notes ###
+        /// 1. A valid User with jwt
+        /// </remarks>
+        /// <response code="200">With short url</response>
+        /// <response code="401">Unauthorized.</response>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
