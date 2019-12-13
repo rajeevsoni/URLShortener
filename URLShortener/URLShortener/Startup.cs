@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using URLShortener.Data.DBContext;
 
 namespace URLShortener
 {
@@ -28,6 +30,15 @@ namespace URLShortener
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+
+            var opt = new DbContextOptionsBuilder<URLShortenerDBContext>()
+                .UseSqlServer(Configuration.GetConnectionString("URLShortenerDatabase"))
+                .Options;
+            services.AddSingleton<Func<URLShortenerDBContext>>
+            (
+                () => new URLShortenerDBContext(opt)
+            );
 
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -66,7 +77,7 @@ namespace URLShortener
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Func<URLShortenerDBContext> dbprovider)
         {
             if (env.IsDevelopment())
             {
@@ -90,6 +101,11 @@ namespace URLShortener
             {
                 endpoints.MapControllers();
             });
+
+            using (var dbContext = dbprovider())
+            {
+                dbContext.Database.Migrate();
+            }
         }
     }
 }
