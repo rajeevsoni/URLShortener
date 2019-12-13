@@ -15,8 +15,9 @@ namespace URLShortener.Controllers
             _logger = logger;
         }
 
+
         /// <summary>
-        /// Get short URL.
+        /// Create short URL for input URL.
         /// </summary>
         /// <remarks>
         /// ### Usage Notes ###
@@ -24,8 +25,8 @@ namespace URLShortener.Controllers
         /// </remarks>
         /// <response code="200">With short url</response>
         /// <response code="401">Unauthorized.</response>
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpPost]
+        public async Task<IActionResult> Post()
         {
             await Task.Delay(10);
             return Ok("tiny url");
