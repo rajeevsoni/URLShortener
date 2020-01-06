@@ -10,7 +10,7 @@ using URLShortener.Data.DBContext;
 namespace URLShortener.Data.Migrations
 {
     [DbContext(typeof(URLShortenerDBContext))]
-    [Migration("20191213094430_InitialMigration")]
+    [Migration("20200106074624_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,9 +43,7 @@ namespace URLShortener.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HashedURL");
-
-                    b.HasIndex("URL", "HashedURL")
+                    b.HasIndex("HashedURL")
                         .IsUnique();
 
                     b.ToTable("URLInfos");
