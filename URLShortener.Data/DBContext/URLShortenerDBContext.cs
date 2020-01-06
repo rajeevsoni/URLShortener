@@ -11,11 +11,7 @@ namespace URLShortener.Data.DBContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<URLInfo>()
-                .HasIndex(x => x.HashedURL);
-
-            modelBuilder.Entity<URLInfo>()
-                .HasIndex(x => new { x.URL, x.HashedURL }).IsUnique();
-
+                .HasIndex(x => x.HashedURL).IsUnique();
         }
 
         public DbSet<URLInfo> URLInfos { get; set; }

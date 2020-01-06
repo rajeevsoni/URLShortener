@@ -41,9 +41,7 @@ namespace URLShortener.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HashedURL");
-
-                    b.HasIndex("URL", "HashedURL")
+                    b.HasIndex("HashedURL")
                         .IsUnique();
 
                     b.ToTable("URLInfos");

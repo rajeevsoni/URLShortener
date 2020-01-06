@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using URLShortener.Data.DBContext;
+using URLShortener.Services;
 
 namespace URLShortener
 {
@@ -35,6 +36,7 @@ namespace URLShortener
             var opt = new DbContextOptionsBuilder<URLShortenerDBContext>()
                 .UseSqlServer(Configuration.GetConnectionString("URLShortenerDatabase"))
                 .Options;
+            services.AddSingleton<IURLShortenerService, URLShortenerService>();
             services.AddSingleton<Func<URLShortenerDBContext>>
             (
                 () => new URLShortenerDBContext(opt)

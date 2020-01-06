@@ -25,12 +25,7 @@ namespace URLShortener.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_URLInfos_HashedURL",
                 table: "URLInfos",
-                column: "HashedURL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_URLInfos_URL_HashedURL",
-                table: "URLInfos",
-                columns: new[] { "URL", "HashedURL" },
+                column: "HashedURL",
                 unique: true);
         }
 
