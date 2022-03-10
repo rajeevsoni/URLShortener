@@ -15,7 +15,6 @@ namespace URLShortener.Controllers
             _logger = logger;
         }
 
-
         /// <summary>
         /// Create short URL for input URL.
         /// </summary>
