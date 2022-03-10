@@ -17,5 +17,7 @@ namespace URLShortener.Data.Entities
         [Required]
         public DateTime CreatedOn { get; set; }
 
+        public int KeyId { get; set; }
+
     }
 }
